@@ -1,7 +1,7 @@
 
 use std::{error::Error, fmt::Debug};
 use serde::{Deserialize, Serialize};
-use state_machine::machine::
+use sfn_machine::machine::
     {state::{StateMachine, State}, data::DeserializeStateData};
 
 // Define the struct representing the shared data
