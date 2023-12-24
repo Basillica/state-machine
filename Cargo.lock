@@ -191,7 +191,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "state-machine"
+name = "sfn-machine"
 version = "0.1.0"
 dependencies = [
  "env_logger",
