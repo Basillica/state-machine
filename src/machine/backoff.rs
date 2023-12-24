@@ -35,5 +35,5 @@ where
         }
     }
 
-    Err(operation(data).err().unwrap_or_else(|| panic!("")))
+    Err(operation(data).err().unwrap_or_else(|| panic!("the operation could not be completed due to an unrecoverable error")))
 }

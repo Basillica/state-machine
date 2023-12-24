@@ -2,6 +2,7 @@ use std::collections::HashSet;
 use std::error::Error;
 use std::{thread, time::Duration};
 use crate::machine::{error, backoff};
+use crate::machine::data;
 use log::{error, info, LevelFilter};
 use env_logger::Builder;
 use std::env;
@@ -48,20 +49,13 @@ pub enum State {
     CustomState,
 }
 
-/// Define the trait for deserialization
-/// #[derive(Debug)]
-pub trait DeserializeStateData: Sized {
-    /// from json method
-    fn from_json(json: &str) -> Result<Self, Box<dyn Error>>;
-}
-
 // Define the function signature for the state nodes
 type StateFunction<T> = fn(&mut T) -> Result<(), Box<dyn Error>>;
 
 
 /// error block
 #[derive(Debug)]
-pub struct ErrorBlock<T: DeserializeStateData>  {
+pub struct ErrorBlock<T: data::DeserializeStateData>  {
     /// error strings
     pub error_equals: Vec<String>,
     /// next method
@@ -70,7 +64,7 @@ pub struct ErrorBlock<T: DeserializeStateData>  {
 
 /// Define the data structure for each element in the linked list
 #[derive(Debug)]
-pub struct StateNode<'a, T: DeserializeStateData> {
+pub struct StateNode<'a, T: data::DeserializeStateData> {
     id: String,
     state: State,
     state_function: StateFunction<T>,
@@ -81,7 +75,7 @@ pub struct StateNode<'a, T: DeserializeStateData> {
     end: Option<bool>
 }
 
-impl<'a, T: DeserializeStateData> StateNode<'a, T> {
+impl<'a, T: data::DeserializeStateData> StateNode<'a, T> {
     fn new(id: &str, state: State, state_function: StateFunction<T>, next: Option<StateFunction<T>>, catch: Option<Vec<ErrorBlock<T>>>, retry: Option<Vec<&'a str>>, end: Option<bool>) -> Self {
         StateNode {
         id: id.to_string(),
@@ -136,7 +130,7 @@ impl<'a, T: DeserializeStateData> StateNode<'a, T> {
 
 /// Define the StateMachine struct
 #[derive(Debug)]
-pub struct StateMachine<'a, T: DeserializeStateData> {
+pub struct StateMachine<'a, T: data::DeserializeStateData> {
     id: String,
     nodes: Vec<StateNode<'a, T>>,
     node_ids: HashSet<String>,
@@ -145,7 +139,7 @@ pub struct StateMachine<'a, T: DeserializeStateData> {
     error_string: Option<String>
 }
 
-impl<'a, T: DeserializeStateData> StateMachine<'a, T> {
+impl<'a, T: data::DeserializeStateData> StateMachine<'a, T> {
     /// Initialize the state machine with an empty list of nodes and an empty set of node IDs
     pub fn new(id: String, shared_data: &'a mut T, retries: i32) -> Self {
         info!("Executing state machine: {} ........", id);

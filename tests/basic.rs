@@ -2,7 +2,7 @@
 use std::{error::Error, fmt::Debug};
 use serde::{Deserialize, Serialize};
 use state_machine::machine::
-    state::{StateMachine, DeserializeStateData, State};
+    {state::{StateMachine, State}, data::DeserializeStateData};
 
 // Define the struct representing the shared data
 #[derive(Debug, Serialize, Deserialize)]
