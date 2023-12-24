@@ -13,7 +13,7 @@ An implementation of a state machine for tasks orchestration and chaining
 using a linked list to guarantee coherence and flexibility when a different 
 procedure is desired
 """
-categories = ["state machine", "tasks orchestration"]
+categories = ["state-machine", "tasks-orchestration", "step-function"]
 autotests = false
 exclude = ["/.github/*"]
 rust-version = "1.74"
