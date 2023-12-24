@@ -1,6 +1,6 @@
 # state-machine
 
-An idiomatic state machine implementation in rust using
+An idiomatic state machine implementation in rust.
 
 This crate provides a simple idiomatic implementation of a state machine in rust.
 The state machine offered by this crate is in close mimic of the AWS state-machine definition
