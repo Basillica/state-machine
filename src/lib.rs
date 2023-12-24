@@ -139,5 +139,8 @@ state_machine.step("Node0", State::Task, StateMachine::error, None, None, Some(v
 #![warn(missing_debug_implementations)]
 
 
-/// root module
+/// The state machine module defines a process for procedurally orchestrating a set of tasks
+/// 
+/// It is a minimalistic implementation that utilizes a linked-list such that the tasks already
+/// execute is a given fashion with little work needed to defined the steps
 pub mod machine;

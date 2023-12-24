@@ -2,7 +2,7 @@
 use std::error::Error;
 use serde::{Deserialize, Serialize};
 use state_machine::machine::
-    state::{StateMachine, DeserializeStateData, State, ErrorBlock};
+    {state::{StateMachine, State, ErrorBlock}, data::DeserializeStateData};
 
 // Define the struct representing the shared data
 #[derive(Debug, Serialize, Deserialize)]
@@ -68,25 +68,11 @@ pub fn main() {
     state_machine.step("NodeD", State::Choice(cond), StateMachine::choice, None, None, None, None);
     state_machine.step("NodeF", State::Task, state_function_c, None, None, None, None);
     state_machine.step("NodeG", State::Task, state_function_d, None, None, None, None);
-  
 
-    println!("node ids: {:?}", state_machine.get_node_ids());
-    // Validate node IDs
-    state_machine.validate_node_ids();
-    let _ = state_machine.execute_by_id("NodeG");
     // Execute the state machine
     if let Err(err) = state_machine.execute() {
-      println!("State machine execution failed: {}", err);
+      assert_eq!(err.to_string(), "STATE.FAILED".to_string());
     }
   
-    // Print the final state of the shared data after executing the functions
-    println!("Final Shared Data: {:?}", shared_data);
-
-
-    // assert_eq!(r"[a-zA-Z0-9]+", regex!(r"[a-zA-Z0-9]+").as_str());
-    // assert_eq!(r"[a-zA-Z0-9]+", &format!("{}", regex!(r"[a-zA-Z0-9]+")));
-    // assert_eq!(
-    //     r#"Regex("[a-zA-Z0-9]+")"#,
-    //     &format!("{:?}", regex!(r"[a-zA-Z0-9]+"))
-    // );
+    assert_eq!(shared_data.counter, 5);
   }

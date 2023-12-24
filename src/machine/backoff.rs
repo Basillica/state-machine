@@ -13,7 +13,12 @@ macro_rules! ifelse {
     }
 }
 
-/// Exponential backoff implementation
+/// Exponential backoff which defines the a simple backoff logic for handling certain processes
+/// which might have failed with a recoverable error.
+/// 
+/// It accepts an operation (a method) which is of the form
+/// 
+/// fn(&mut T) -> Result<(), Box<dyn Error>>;
 pub fn exponential_backoff<F, E, T>(mut operation: F, data: &mut T, retries: Option<i32>) -> Result<(), E>
 where
     F: FnMut(&mut T) -> Result<(), E>,

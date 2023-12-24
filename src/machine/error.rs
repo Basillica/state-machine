@@ -1,7 +1,7 @@
 use std::fmt;
 use std::error::Error;
 
-/// Define a custom error type for the state machine
+/// Custom error that can be thrown at any point in the execution
 #[derive(Debug)]
 pub struct StateMachineError {
     /// error string

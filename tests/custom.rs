@@ -68,11 +68,10 @@ pub fn main() {
     state_machine.step("NodeD", State::Choice(cond), StateMachine::choice, None, None, None, None);
     state_machine.step("NodeF", State::Task, state_function_c, None, None, None, None);
     state_machine.step("NodeG", State::Task, state_function_d, None, None, None, None);
-  
 
-    println!("node ids: {:?}", state_machine.get_node_ids());
     // Validate node IDs
     state_machine.validate_node_ids();
+    // execute  a step by its id
     let _ = state_machine.execute_by_id("NodeG");
     // Execute the state machine
     if let Err(err) = state_machine.execute() {
@@ -82,11 +81,4 @@ pub fn main() {
     // Print the final state of the shared data after executing the functions
     println!("Final Shared Data: {:?}", shared_data);
 
-
-    // assert_eq!(r"[a-zA-Z0-9]+", regex!(r"[a-zA-Z0-9]+").as_str());
-    // assert_eq!(r"[a-zA-Z0-9]+", &format!("{}", regex!(r"[a-zA-Z0-9]+")));
-    // assert_eq!(
-    //     r#"Regex("[a-zA-Z0-9]+")"#,
-    //     &format!("{:?}", regex!(r"[a-zA-Z0-9]+"))
-    // );
   }

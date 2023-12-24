@@ -8,7 +8,7 @@ use env_logger::Builder;
 use std::env;
 
 
-/// log::init_logger();
+/// A logger method
 pub fn init_logger() {
     // Check if the RUST_LOG environment variable is set
     if let Ok(log_var) = env::var("RUST_LOG") {
@@ -26,24 +26,30 @@ pub fn init_logger() {
 }
 
 
-/// Define the states of the state machine
+/// The states of the state machine
+/// 
+/// They define the possible states that a step in the state machine could be in
 #[derive(Debug)]
 pub enum State {
-    /// task state
+    /// The task state is the state a regular step would be in, a step that performs
+    /// an operation
     Task,
-    /// choice state
+    /// choice state is only executed if it the condition is true
     Choice(fn() -> bool),
-    /// sleep state
+    /// sleep state does nothing but put the main thread to sleep for a while
     Sleep(u64),
-    /// pass state
+    /// pass state does absolutely nothing
     Pass,
-    /// parallel state
+    /// parallel state would perform a set of instructions in parallel
     Parallel,
-    /// succeed state
+    /// succeed state defines a successful execution of the state machine.
+    /// It is also the end of the execution and terminates the state machine.
     Succeed,
-    /// fail state
+    /// fail state defines when the execution has failed.
+    /// It terminates the state machine and exist the program.
+    /// The error can be retried depending on its error type
     Fail,
-    /// map state
+    /// map state executes an operation on a a given map
     Map,
     /// custom state
     CustomState,
