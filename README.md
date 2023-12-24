@@ -29,7 +29,7 @@ A simple example of the usage is given below:
 ```rust
 use std::{error::Error, fmt::Debug};
 use serde::{Deserialize, Serialize};
-use state_machine::machine::
+use sfn_machine::machine::
     {state::{StateMachine, State}, data::DeserializeStateData};
 
 // Define the struct representing the shared data
@@ -88,19 +88,19 @@ pub fn main() {
 
     // Create a state machine
     let mut shared_data = SharedData { counter: shared_data.counter, id: shared_data.id };
-    let mut state_machine = StateMachine::new("MachineA011".to_string(), &mut shared_data, 3);
+    let mut sfn_machine = StateMachine::new("MachineA011".to_string(), &mut shared_data, 3);
 
-    state_machine.step("NodeA", State::Task, state_function_a, None, None, None, None);
-    state_machine.step("NodeB", State::Task, state_function_b, None, None, None, None);
-    state_machine.step("NodeC", State::Task, state_function_c, None, None, None, None);
+    sfn_machine.step("NodeA", State::Task, state_function_a, None, None, None, None);
+    sfn_machine.step("NodeB", State::Task, state_function_b, None, None, None, None);
+    sfn_machine.step("NodeC", State::Task, state_function_c, None, None, None, None);
     // The end attribute can be set optionally. When set, the node becomes the last step in the state machine
-    state_machine.step("NodeD", State::Task, state_function_d, None, None, None, Some(true));
+    sfn_machine.step("NodeD", State::Task, state_function_d, None, None, None, Some(true));
 
     // Validate node IDs
-    state_machine.validate_node_ids();
+    sfn_machine.validate_node_ids();
 
     // execute state machine
-    if let Err(err) = state_machine.execute() {
+    if let Err(err) = sfn_machine.execute() {
       println!("State machine execution failed: {}", err);
     }
   }
@@ -125,10 +125,10 @@ fn state_function_b(data: &mut SharedData) -> Result<(), Box<dyn Error>> {
 }
 
 let mut shared_data = SharedData { counter: shared_data.counter, id: shared_data.id };
-let mut state_machine = StateMachine::new("MachineA011".to_string(), &mut shared_data, 3);
+let mut sfn_machine = StateMachine::new("MachineA011".to_string(), &mut shared_data, 3);
 
-state_machine.step("NodeA", State::Task, state_function_a, state_function_b, None, None, None);
-state_machine.step("NodeB", State::Task, state_function_b, None, None, None, None);
+sfn_machine.step("NodeA", State::Task, state_function_a, state_function_b, None, None, None);
+sfn_machine.step("NodeB", State::Task, state_function_b, None, None, None, None);
 ```
 
 Same is also true for defining the last step in the state machine.
@@ -137,5 +137,5 @@ One can also define a set of errors to catch or retry, with corresponding action
 Example
 
 ```rust
-state_machine.step("Node0", State::Task, StateMachine::error, None, None, Some(vec!["STATE.FAILED"]), Some(false));
+sfn_machine.step("Node0", State::Task, StateMachine::error, None, None, Some(vec!["STATE.FAILED"]), Some(false));
 ```
