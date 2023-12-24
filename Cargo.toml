@@ -2,6 +2,21 @@
 name = "state-machine"
 version = "0.1.0"
 edition = "2021"
+authors = ["Ezeabasili Anthony <ezeabasilianthony@gmail.com>"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/Basillica/state-machine"
+documentation = "https://docs.rs/regex"
+homepage = "https://github.com/Basillica/state-machine"
+description = """
+An implementation of a state machine for tasks orchestration and chaining
+using a linked list to guarantee coherence and flexibility when a different 
+procedure is desired
+"""
+categories = ["state machine", "tasks orchestration"]
+autotests = false
+exclude = ["/.github/*"]
+rust-version = "1.74"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -14,3 +29,13 @@ env_logger = "0.10"
 [[test]]
 path = "tests/lib.rs"
 name = "integration"
+
+[profile.release]
+debug = true
+
+[profile.bench]
+debug = true
+
+[profile.test]
+opt-level = 3
+debug = true
