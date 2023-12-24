@@ -6,7 +6,7 @@ The crate is still in development and more features will be published to it as t
 become available.
 
 A state machine is comprised of steps which can be one of the following states
-```rust
+```text
 pub enum State {
     Task,
     Choice(fn() -> bool),
@@ -22,7 +22,7 @@ pub enum State {
 
 A simple example of the usage is given below:
 
-```rust
+```text
 use std::{error::Error, fmt::Debug};
 use serde::{Deserialize, Serialize};
 use state_machine::machine::
@@ -107,7 +107,8 @@ The implementation is implemented as a linked-list, meaning the executions will 
 their order of definition, requiring no additional work to execute in a given order.
 
 There is also the option to define the order of execution using the `next` attribute of the step function.
-```rust
+
+```text
 fn state_function_a(data: &mut SharedData) -> Result<(), Box<dyn Error>> {
   data.counter += 1;
   Ok(())
@@ -129,10 +130,9 @@ Same is also true for defining the last step in the state machine.
 
 One can also define a set of errors to catch or retry, with corresponding actions to be taken when they are matched
 Example
-```rust
+```text
 state_machine.step("Node0", State::Task, StateMachine::error, None, None, Some(vec!["STATE.FAILED"]), Some(false));
 ```
-
 */
 
 #![deny(missing_docs)]
