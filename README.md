@@ -10,6 +10,8 @@ become available.
 
 A state machine is comprised of steps which can be one of the following states
 
+_Still in active development, the main branch would be the most stabel copy_
+
 ```rust
 pub enum State {
     Task,
