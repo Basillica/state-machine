@@ -22,7 +22,7 @@ impl DeserializeStateData for SharedData {
 #[test]
 pub fn main() {
     // JSON representation of the shared data
-    let json_data = r#"{"counter": 5, "id": "frigging-id"}"#;
+    let json_data = r#"{"counter": 5, "id": "some-id"}"#;
     // Deserialize the shared data
     let shared_data: SharedData = SharedData::from_json(json_data).expect("Failed to deserialize");
   

@@ -103,7 +103,6 @@ impl<'a, T: data::DeserializeStateData> StateNode<'a, T> {
                 match (self.state_function)(data) {
                     Ok(_) => (),
                     Err(e) => {
-                        error!("the frigging error: {e:?}");
                         return Err(e);
                     },
                 };
@@ -114,7 +113,6 @@ impl<'a, T: data::DeserializeStateData> StateNode<'a, T> {
                     match (self.state_function)(data) {
                         Ok(_) => (),
                         Err(e) => {
-                            error!("the frigging error: {e:?}");
                             return Err(e);
                         },
                     };
