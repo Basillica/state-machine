@@ -1,12 +1,12 @@
 [package]
 name = "sfn-machine"
-version = "0.1.1"
+version = "0.1.3"
 edition = "2021"
 authors = ["Ezeabasili Anthony <ezeabasilianthony@gmail.com>"]
 license = "MIT OR Apache-2.0"
 readme = "README.md"
 repository = "https://github.com/Basillica/state-machine"
-documentation = "https://docs.rs/regex"
+documentation = "https://docs.rs/sfn-machine/latest/sfn_machine"
 homepage = "https://github.com/Basillica/state-machine"
 description = """
 An implementation of a state machine for tasks orchestration and chaining
@@ -23,8 +23,6 @@ rust-version = "1.74"
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0.108"
-log = "0.4"
-env_logger = "0.10"
 
 [[test]]
 path = "tests/lib.rs"

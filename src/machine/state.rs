@@ -3,27 +3,27 @@ use std::error::Error;
 use std::{thread, time::Duration};
 use crate::machine::{error, backoff};
 use crate::machine::data;
-use log::{error, info, LevelFilter};
-use env_logger::Builder;
-use std::env;
+// use log::{error, info, LevelFilter};
+// use env_logger::Builder;
+// use std::env;
 
 
 /// A logger method
-pub fn init_logger() {
-    // Check if the RUST_LOG environment variable is set
-    if let Ok(log_var) = env::var("RUST_LOG") {
-        // If set, use the specified log level
-        Builder::from_env(log_var.as_str())
-            .target(env_logger::Target::Stdout)
-            .init();
-    } else {
-        // Default to info level if RUST_LOG is not set
-        Builder::new()
-            .filter_level(LevelFilter::Info)
-            .target(env_logger::Target::Stdout)
-            .init();
-    }
-}
+// pub fn init_logger() {
+//     // Check if the RUST_LOG environment variable is set
+//     if let Ok(log_var) = env::var("RUST_LOG") {
+//         // If set, use the specified log level
+//         Builder::from_env(log_var.as_str())
+//             .target(env_logger::Target::Stdout)
+//             .init();
+//     } else {
+//         // Default to info level if RUST_LOG is not set
+//         Builder::new()
+//             .filter_level(LevelFilter::Info)
+//             .target(env_logger::Target::Stdout)
+//             .init();
+//     }
+// }
 
 
 /// The states of the state machine
@@ -146,7 +146,7 @@ pub struct StateMachine<'a, T: data::DeserializeStateData> {
 impl<'a, T: data::DeserializeStateData> StateMachine<'a, T> {
     /// Initialize the state machine with an empty list of nodes and an empty set of node IDs
     pub fn new(id: String, shared_data: &'a mut T, retries: i32) -> Self {
-        info!("Executing state machine: {} ........", id);
+        println!("Executing state machine: {} ........", id);
         StateMachine {
             id,
             nodes: Vec::new(),
@@ -187,7 +187,7 @@ impl<'a, T: data::DeserializeStateData> StateMachine<'a, T> {
         for node in &mut self.nodes {
             if node.id == node_id {
                 if let Err(err) = node.execute(self.shared_data) {
-                    error!("Error: {}", err);
+                    println!("Error: {}", err);
                     return Err(error::StateMachineError {
                         message: err.to_string(),
                     });
